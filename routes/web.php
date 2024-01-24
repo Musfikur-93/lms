@@ -49,8 +49,3 @@ Route::middleware(['auth','roles:instructor'])->group(function(){
     Route::get('/instructor/dashboard', [InstructorController::class, 'InstructorDashboard'])->name('instructor.dashboard');
 
 }); // End Instructor Group Middleware
-
-// Instructor
-
-
-
