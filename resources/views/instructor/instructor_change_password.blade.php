@@ -1,5 +1,5 @@
-@extends('admin.admin_dashboard')
-@section('admin')
+@extends('instructor.instructor_dashboard')
+@section('instructor')
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
@@ -28,7 +28,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex flex-column align-items-center text-center">
-                                <img src="{{ (!empty($profileData->photo)) ? url('upload/admin_images/'.$profileData->photo) : url('upload/no_image.jpg') }}" alt="Admin" class="rounded-circle p-1 bg-primary" width="110">
+                                <img src="{{ (!empty($profileData->photo)) ? url('upload/instructor_images/'.$profileData->photo) : url('upload/no_image.jpg') }}" alt="Admin" class="rounded-circle p-1 bg-primary" width="110">
                                 <div class="mt-3">
                                     <h4>{{ $profileData->name }}</h4>
                                     <p class="text-secondary mb-1">{{ $profileData->email }}</p>
@@ -50,7 +50,7 @@
                 </div>
                 <div class="col-lg-8">
                     <div class="card">
-                        <form action="{{ route('admin.password.update') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('instructor.password.update') }}" method="POST" enctype="multipart/form-data">
                             @csrf
 
                             <div class="card-body">
