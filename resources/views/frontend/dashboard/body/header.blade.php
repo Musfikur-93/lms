@@ -175,10 +175,11 @@
 
                                                             <li><div class="section-block"></div></li>
                                                             <li>
-                                                                <a href="dashboard-settings.html">
-                                                                    <i class="la la-gear mr-1"></i> Settings
+                                                                <a href="{{ route('user.profile') }}">
+                                                                    <i class="la la-edit mr-1"></i> Profile
                                                                 </a>
                                                             </li>
+                                                            <li><div class="section-block"></div></li>
                                                             <li>
                                                                 <a href="dashboard-purchase-history.html">
                                                                     <i class="la la-history mr-1"></i> Purchase history
@@ -186,23 +187,13 @@
                                                             </li>
                                                             <li><div class="section-block"></div></li>
                                                             <li>
-                                                                <a href="student-detail.html">
-                                                                    <i class="la la-user mr-1"></i> Public profile
-                                                                </a>
-                                                            </li>
-                                                            <li>
                                                                 <a href="dashboard-settings.html">
-                                                                    <i class="la la-edit mr-1"></i> Edit profile
+                                                                    <i class="la la-gear mr-1"></i> Change Password
                                                                 </a>
                                                             </li>
                                                             <li><div class="section-block"></div></li>
                                                             <li>
-                                                                <a href="#">
-                                                                    <i class="la la-question mr-1"></i> Help
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="index.html">
+                                                                <a href="{{ route('user.logout') }}">
                                                                     <i class="la la-power-off mr-1"></i> Logout
                                                                 </a>
                                                             </li>
