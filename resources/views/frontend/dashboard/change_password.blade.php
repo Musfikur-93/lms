@@ -7,7 +7,7 @@
         <h3 class="fs-17 font-weight-semi-bold pb-4">Change Password</h3>
 
 
-    <form method="post" action="{{ route('user.profile.update') }}" enctype="multipart/form-data" class="row pt-40px">
+    <form method="post" action="{{ route('user.password.update') }}" enctype="multipart/form-data" class="row pt-40px">
         @csrf
 
 
@@ -44,9 +44,6 @@
                     <span class="la la-lock input-icon"></span>
                 </div>
             </div><!-- end input-box -->
-
-
-
 
             <div class="input-box col-lg-12 py-2">
                 <button class="btn theme-btn">Save Changes</button>

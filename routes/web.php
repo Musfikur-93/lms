@@ -7,6 +7,8 @@ use App\Http\Controllers\InstructorController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Controller;
 
+use App\Http\Controllers\Backend\CategoryController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -34,7 +36,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/user/profile', [UserController::class, 'UserProfile'])->name('user.profile');
     Route::post('/user/profile/update', [UserController::class, 'UserProfileUpdate'])->name('user.profile.update');
     Route::get('/user/logout', [UserController::class, 'UserLogout'])->name('user.logout');
+
     Route::get('/user/change/password', [UserController::class, 'UserChangePassword'])->name('user.change.password');
+    Route::post('/user/password/update', [UserController::class, 'UserPasswordUpdate'])->name('user.password.update');
 
  });
 
@@ -50,6 +54,14 @@ Route::middleware(['auth','roles:admin'])->group(function(){
     Route::post('/admin/profile/store', [AdminController::class, 'AdminProfileStore'])->name('admin.profile.store');
     Route::get('/admin/change/password', [AdminController::class, 'AdminChangePassword'])->name('admin.change.password');
     Route::post('/admin/password/update', [AdminController::class, 'AdminPasswordUpdate'])->name('admin.password.update');
+
+
+    // Category All Route
+    Route::controller(CategoryController::class)->group(function(){
+
+    Route::get('/all/category','AllCategory')->name('all.category');
+
+    });
 
 }); // End Admin Group Middleware
 
