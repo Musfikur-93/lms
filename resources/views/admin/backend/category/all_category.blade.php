@@ -15,7 +15,7 @@
         </div>
         <div class="ms-auto">
             <div class="btn-group">
-                <a href="" class="btn btn-primary px-5">Add Category </a>
+                <a href="{{ route('add.category') }}" class="btn btn-primary px-5">Add Category </a>
             </div>
         </div>
     </div>
@@ -41,7 +41,7 @@
                             </td>
                             <td>{{ $item->category_name }}</td>
                             <td>
-                                <a href="" class="btn btn-warning px-3">Edit </a>
+                                <a href="{{ route('edit.category', $item->id) }}" class="btn btn-warning px-3">Edit </a>
                                 <a href="" class="btn btn-danger px-3">Delete </a>
                             </td>
                         </tr>
