@@ -9,13 +9,13 @@
                 <ol class="breadcrumb mb-0 p-0">
                     <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
                     </li>
-                    <li class="breadcrumb-item active" aria-current="page">All Category</li>
+                    <li class="breadcrumb-item active" aria-current="page">All SubCategory</li>
                 </ol>
             </nav>
         </div>
         <div class="ms-auto">
             <div class="btn-group">
-                <a href="{{ route('add.category') }}" class="btn btn-primary px-5">Add Category </a>
+                <a href="{{ route('add.subcategory') }}" class="btn btn-primary px-5">Add SubCategory </a>
             </div>
         </div>
     </div>
@@ -27,19 +27,19 @@
                     <thead>
                         <tr>
                             <th>Sl </th>
-                            <th>Category Image</th>
                             <th>Category Name</th>
+                            <th>SubCategory Name</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($category as $key => $item)
+                        @foreach ($subcategory as $key => $item)
                         <tr>
                             <td>{{ $key+1 }}</td>
                             <td>
-                                <img src="{{ asset($item->image) }}" alt="" style="width: 70px; height: 40px;">
+                                {{ $item['category']['category_name'] }}
                             </td>
-                            <td>{{ $item->category_name }}</td>
+                            <td>{{ $item->subcategory_name }}</td>
                             <td>
                                 <a href="{{ route('edit.category', $item->id) }}" class="btn btn-warning px-3">Edit </a>
                                 <a href="{{ route('delete.category', $item->id) }}" class="btn btn-danger px-3" id="delete">Delete </a>
