@@ -68,15 +68,26 @@ Route::middleware(['auth','roles:admin'])->group(function(){
 
     });
 
+
     // SubCategory All Route
     Route::controller(CategoryController::class)->group(function(){
 
         Route::get('/all/subcategory','AllSubCategory')->name('all.subcategory');
         Route::get('/add/subcategory','AddSubcategory')->name('add.subcategory');
         Route::post('/store/subcategory','StoreSubCategory')->name('store.subcategory');
-        Route::get('/edit/category/{id}','EditCategory')->name('edit.category');
-        Route::post('/update/category','UpdateCategory')->name('update.category');
-        Route::get('/delete/category/{id}','DeleteCategory')->name('delete.category');
+        Route::get('/edit/subcategory/{id}','EditSubcategory')->name('edit.subcategory');
+        Route::post('/update/subcategory','UpdateSubCategory')->name('update.subcategory');
+        Route::get('/delete/subcategory/{id}','DeleteSubCategory')->name('delete.subcategory');
+
+    });
+
+
+    // Instructor All Route
+    Route::controller(AdminController::class)->group(function(){
+
+        Route::get('/all/instructor','AllInstructor')->name('all.instructor');
+        Route::post('/update/user/stauts','UpdateUserStatus')->name('update.user.stauts');
+
 
     });
 
@@ -85,6 +96,8 @@ Route::middleware(['auth','roles:admin'])->group(function(){
 }); // End Admin Group Middleware
 
     Route::get('/admin/login', [AdminController::class, 'AdminLogin'])->name('admin.login');
+    Route::get('/become/instructor', [AdminController::class, 'BecomeInstructor'])->name('become.instructor');
+    Route::post('/instructor/register', [AdminController::class, 'InstructorRegister'])->name('instructor.register');
 
 
 // Instructor Group Middleware
