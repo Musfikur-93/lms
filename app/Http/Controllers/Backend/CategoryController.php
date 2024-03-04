@@ -32,11 +32,11 @@ class CategoryController extends Controller
             $image = $request->file('image');
 
             $manager = new ImageManager(new Driver());
-            $namge_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
+            $name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
             $img = $manager->read($image);
             $img = $img->resize(370,246);
-            $img->toJpeg(80)->save(base_path('public/upload/category/'.$namge_gen));
-            $save_url = 'upload/category/'.$namge_gen;
+            $img->toJpeg(80)->save(base_path('public/upload/category/'.$name_gen));
+            $save_url = 'upload/category/'.$name_gen;
 
             Category::insert([
                 'category_name' => $request->category_name,

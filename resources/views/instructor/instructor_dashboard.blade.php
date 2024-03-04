@@ -26,6 +26,9 @@
 	<link rel="stylesheet" href="{{ asset('backend/assets/css/semi-dark.css') }}"/>
 	<link rel="stylesheet" href="{{ asset('backend/assets/css/header-colors.css') }}"/>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" >
+    <!-- DataTable CSS -->
+    <link href="{{ asset('backend/assets/plugins/datatable/css/dataTables.bootstrap5.min.css') }}" rel="stylesheet" />
+    <!-- End DataTable CSS -->
 
 	<title>Instructor Dashboard</title>
 </head>
@@ -67,6 +70,9 @@
     <script src="{{ asset('backend/assets/plugins/vectormap/jquery-jvectormap-world-mill-en.js') }}"></script>
 	<script src="{{ asset('backend/assets/plugins/chartjs/js/chart.js') }}"></script>
 	<script src="{{ asset('backend/assets/js/index.js') }}"></script>
+    <script src="{{ asset('backend/assets/js/validate.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="{{ asset('backend/assets/js/code.js') }}"></script>
 	<!--app JS-->
 	<script src="{{ asset('backend/assets/js/app.js') }}"></script>
 	<script>
@@ -97,6 +103,26 @@
     }
     @endif
     </script>
+
+    <!--DataTable JS-->
+    <script src="{{ asset('backend/assets/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('backend/assets/plugins/datatable/js/dataTables.bootstrap5.min.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('#example').DataTable();
+        } );
+    </script>
+    <!--End DataTable JS-->
+
+    <script src="https://cdn.tiny.cloud/1/pyv391rnjudjbnkjpv985xoy8eopf275992lmw41r8gta8ch/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+    tinymce.init({
+        selector: 'textarea#myeditorinstance', // Replace this CSS selector to match the placeholder element for TinyMCE
+        plugins: 'powerpaste advcode table lists checklist',
+        toolbar: 'undo redo | blocks| bold italic | bullist numlist checklist | code | table'
+    });
+    </script>
+
 </body>
 
 </html>

@@ -8,6 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\Controller;
 
 use App\Http\Controllers\Backend\CategoryController;
+use App\Http\Controllers\Backend\CourseController;
 
 /*
 |--------------------------------------------------------------------------
@@ -88,7 +89,6 @@ Route::middleware(['auth','roles:admin'])->group(function(){
         Route::get('/all/instructor','AllInstructor')->name('all.instructor');
         Route::post('/update/user/stauts','UpdateUserStatus')->name('update.user.stauts');
 
-
     });
 
 
@@ -109,6 +109,20 @@ Route::middleware(['auth','roles:instructor'])->group(function(){
     Route::post('/instructor/profile/store', [InstructorController::class, 'InstructorProfileStore'])->name('instructor.profile.store');
     Route::get('/instructor/change/password', [InstructorController::class, 'InstructorChangePassword'])->name('instructor.change.password');
     Route::post('/instructor/password/update', [InstructorController::class, 'InstructorPasswordUpdate'])->name('instructor.password.update');
+
+
+    // Course All Route
+    Route::controller(CourseController::class)->group(function(){
+
+        Route::get('/all/course','AllCourse')->name('all.course');
+        Route::get('/add/course','AddCourse')->name('add.course');
+        Route::post('/store/course','StoreCourse')->name('store.course');
+
+        // Subcategory Show
+        Route::get('/subcategory/ajax/{category_id}','GetSubcategory');
+
+
+    });
 
 }); // End Instructor Group Middleware
 

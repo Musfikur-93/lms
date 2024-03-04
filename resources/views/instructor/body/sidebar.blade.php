@@ -27,16 +27,16 @@
 
         @if ($status === '1')
 
-        <li class="menu-label">UI Elements</li>
+        <li class="menu-label">Courses </li>
 
         <li>
             <a href="javascript:;" class="has-arrow">
                 <div class="parent-icon"><i class='bx bx-cart'></i>
                 </div>
-                <div class="menu-title">eCommerce</div>
+                <div class="menu-title">Manage Course</div>
             </a>
             <ul>
-                <li> <a href="ecommerce-products.html"><i class='bx bx-radio-circle'></i>Products</a>
+                <li> <a href="{{ route('all.course') }}"><i class='bx bx-radio-circle'></i>All Course</a>
                 </li>
             </ul>
         </li>
