@@ -120,7 +120,7 @@
 
                 <div class="form-group col-md-12">
                     <label for="input1" class="form-label">Course Description </label>
-                    <textarea name="description" class="form-control" id="myeditorinstance"></textarea>
+                    <textarea name="description" class="form-control" id="summernote"></textarea>
                 </div>
 
                 <p>Course Goals</p>
@@ -153,7 +153,7 @@
 
                     <div class="col-md-4">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="featured" value="1" id="flexCheckDefault">
+                            <input class="form-check-input" type="checkbox" name="feartured" value="1" id="flexCheckDefault">
                             <label class="form-check-label" for="flexCheckDefault">Featured</label>
                         </div>
                     </div>
@@ -183,8 +183,6 @@
        <div class="whole_extra_item_delete" id="whole_extra_item_delete">
           <div class="container mt-2">
              <div class="row">
-
-
                 <div class="form-group col-md-6">
                    <label for="goals">Goals</label>
                    <input type="text" name="course_goals[]" id="goals" class="form-control" placeholder="Goals  ">
@@ -272,9 +270,6 @@
                     required : true,
                 },
 
-                discount_price: {
-                    required : true,
-                },
 
                 duration: {
                     required : true,
@@ -304,10 +299,6 @@
 
                 selling_price: {
                     required : 'Please Enter Selling Price',
-                },
-
-                discount_price: {
-                    required : 'Please Enter Discount Price',
                 },
 
                 duration: {
