@@ -126,7 +126,17 @@ Route::middleware(['auth','roles:instructor'])->group(function(){
         Route::post('/update/course','UpdateCourse')->name('update.course');
         Route::post('/update/course/image','UpdateCourseImage')->name('update.course.image');
         Route::post('/update/course/video','UpdateCourseVideo')->name('update.course.video');
+        Route::post('/update/course/goal','UpdateCourseGoal')->name('update.course.goal');
+        Route::get('/delete/course/{id}','DeleteCourse')->name('delete.course');
 
+
+    });
+
+    // Course  Section and Lecture All Route
+    Route::controller(CourseController::class)->group(function(){
+
+        Route::get('/add/course/lecture/{id}','AddCourseLecture')->name('add.course.lecture');
+        Route::post('/add/course/section','AddCourseSection')->name('add.course.section');
 
     });
 

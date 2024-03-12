@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\SubCategory;
 use App\Models\Course;
+use App\Models\CourseLecture;
+use App\Models\CourseSection;
 use App\Models\Coursegoal;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
@@ -218,6 +220,88 @@ class CourseController extends Controller
 
         $notification = array(
             'message' => 'Course Video Updated Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+
+    } // End Method
+
+
+    public function UpdateCourseGoal(Request $request){
+
+        $cid = $request->id;
+
+        if ($request->course_goals == NULL) {
+            return redirect()->back();
+        }else{
+            Coursegoal::where('course_id',$cid)->delete();
+
+            $goals = Count($request->course_goals);
+            for ($i=0; $i < $goals; $i++) {
+                $gcount = new Coursegoal();
+                $gcount->course_id = $cid;
+                $gcount->goal_name = $request->course_goals[$i];
+                $gcount->save();
+
+            } // end for
+
+        } // end else
+
+        $notification = array(
+            'message' => 'Course Goals Updated Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+
+    } // End Method
+
+
+    public function DeleteCourse($id){
+
+        $course = Course::find($id);
+        unlink($course->course_image);
+        unlink($course->video);
+
+        Course::find($id)->delete();
+
+        $goalData = Coursegoal::where('course_id',$id)->get();
+        foreach ($goalData as $item) {
+            $item->goal_name;
+            Coursegoal::where('course_id',$id)->delete();
+        }
+
+        $notification = array(
+            'message' => 'Course Goals Deleted Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+
+    } // End Method
+
+
+    ////////////////  Course Lecture ///////////////
+
+    public function AddCourseLecture($id){
+
+        $course = Course::find($id);
+        $section = CourseSection::where('course_id',$id)->latest()->get();
+
+        return view('instructor.course.section.add_course_lecture',compact('course','section'));
+
+    } // End Method
+
+
+    public function AddCourseSection(Request $request){
+
+        $cid = $request->id;
+
+        CourseSection::insert([
+            'course_id' => $cid,
+            'section_title' => $request->section_title,
+        ]);
+
+        $notification = array(
+            'message' => 'Course Section Added Successfully',
             'alert-type' => 'success'
         );
         return redirect()->back()->with($notification);

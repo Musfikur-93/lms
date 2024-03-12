@@ -224,8 +224,10 @@
 <div class="page-content">
     <div class="card">
         <div class="card-body">
-            <form action="{{ route('update.course.video') }}" method="POST">
+            <form action="{{ route('update.course.goal') }}" method="POST">
                 @csrf
+
+                <input type="hidden" name="id" value="{{ $course->id }}">
 
                 <!--   //////////// Goal Option /////////////// -->
                 @foreach ($goals as $item)
@@ -248,6 +250,7 @@
                 </div>
                 </div> <!---end row-->
                 @endforeach
+
                 <!--   //////////// End Goal Option /////////////// -->
                 <br>
                 <div class="col-md-12">
