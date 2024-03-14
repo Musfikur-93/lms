@@ -306,7 +306,81 @@ class CourseController extends Controller
         );
         return redirect()->back()->with($notification);
 
-    }// End Method
+    } // End Method
+
+
+    public function SaveLecture(Request $request){
+
+        $lecture = new CourseLecture();
+        $lecture->course_id = $request->course_id;
+        $lecture->section_id = $request->section_id;
+        $lecture->lecture_title = $request->lecture_title;
+        $lecture->url = $request->lecture_url;
+        $lecture->content = $request->content;
+        $lecture->save();
+
+        return response()->json(['success' => 'Lecture Saved Successfully']);
+
+    } // End Method
+
+
+    public function EditLecture($id){
+
+        $clecture = CourseLecture::find($id);
+        return view('instructor.course.lecture.edit_course_lecture',compact('clecture'));
+
+    } // End Method
+
+
+    public function UpdateCourseLecture(Request $request){
+
+        $lid = $request->id;
+
+        CourseLecture::find($lid)->update([
+            'lecture_title' => $request->lecture_title,
+            'url' => $request->url,
+            'content' => $request->content,
+        ]);
+
+        $notification = array(
+            'message' => 'Course Lecture Updated Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+
+    } // End Method
+
+
+    public function DeleteLecture($id){
+
+        CourseLecture::find($id)->delete();
+
+        $notification = array(
+            'message' => 'Course Lecture Deleted Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+
+    } // End Method
+
+
+    public function DeleteSection($id){
+
+        $section = CourseSection::find($id);
+
+        //Delete Section Related Lecture
+        $section->lectures()->delete();
+
+        // Delete the total section
+        $section->delete();
+
+        $notification = array(
+            'message' => 'Course Section Deleted Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+
+    } // End Method
 
 
 }

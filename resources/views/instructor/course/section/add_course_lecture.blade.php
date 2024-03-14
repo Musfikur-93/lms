@@ -31,8 +31,11 @@
 
                                             <div class="d-flex justify-content-between align-items-center">
 
-                                            <button type="submit" class="btn btn-danger px-2 ms-auto"> Delete Section</button> &nbsp;
+                                            <form action="{{ route('delete.section', ['id' => $item->id]) }}" method="POST">
+                                                    @csrf
 
+                                                <button type="submit" class="btn btn-danger px-2 ms-auto"> Delete Section</button> &nbsp;
+                                            </form>
 
                                             <a class="btn btn-primary" onclick="addLectureDiv({{ $course->id }}, {{ $item->id }}, 'lectureContainer{{ $key }}')" id="addLectureBtn($key)"> Add Lecture </a>
 
@@ -42,16 +45,18 @@
 
                                         <div class="courseHide" id="lectureContainer{{ $key }}">
                                             <div class="container">
+                                                @foreach ($item->lectures as $lecture)
                                                 <div class="lectureDiv mb-3 d-flex align-items-center justify-content-between">
                                                     <div>
-                                                        <strong>lecture title asdfsdafasfdsf</strong>
+                                                        <strong>{{ $loop->iteration }}. {{ $lecture->lecture_title }}</strong>
                                                     </div>
 
                                                     <div class="btn-group">
-                                                        <a href="" class="btn btn-sm btn-primary">Edit</a> &nbsp;
-                                                        <a href="" class="btn btn-sm btn-danger">Delete</a>
+                                                        <a href="{{ route('edit.lecture',['id' => $lecture->id]) }}" class="btn btn-sm btn-primary">Edit</a> &nbsp;
+                                                        <a href="{{ route('delete.lecture',['id' => $lecture->id]) }}" class="btn btn-sm btn-danger" id="delete">Delete</a>
                                                     </div>
                                                 </div>
+                                                @endforeach
                                             </div>
                                            </div>
 
@@ -112,12 +117,81 @@
             <textarea class="form-control mt-2" placeholder="Enter Lecture Content"  ></textarea>
             <h6 class="mt-3">Add Video Url</h6>
             <input type="text" name="url" class="form-control" placeholder="Add URL">
-            <button class="btn btn-primary mt-3" onclick="" >Save Lecture</button>
-            <button class="btn btn-secondary mt-3" onclick="">Cancel</button>
+            <button class="btn btn-primary mt-3" onclick="saveLecture('${courseId}',${sectionId},'${containerId}')" >Save Lecture</button>
+            <button class="btn btn-secondary mt-3" onclick="hideLectureContainer('${containerId}')">Cancel</button>
         </div>`;
 
         lectureContainer.appendChild(newLectureDiv);
 
+    }
+
+    function hideLectureContainer(containerId) {
+
+        const lectureContainer = document.getElementById(containerId);
+        lectureContainer.style.display = 'none';
+        location.reload();
+
+    }
+
+</script>
+
+
+<script>
+    function saveLecture(courseId, sectionId, containerId){
+        const lectureContainer = document.getElementById(containerId);
+        const lectureTitle = lectureContainer.querySelector('input[type="text"]').value;
+        const lectureContent = lectureContainer.querySelector('textarea').value;
+        const lectureUrl = lectureContainer.querySelector('input[name="url"]').value;
+        fetch('/save-lecture', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+            },
+            body: JSON.stringify({
+                course_id: courseId,
+                section_id: sectionId,
+                lecture_title: lectureTitle,
+                lecture_url: lectureUrl,
+                content: lectureContent,
+            }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            lectureContainer.style.display = 'none';
+            location.reload();
+
+            // Start Message
+
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 6000
+                })
+                if ($.isEmptyObject(data.error)) {
+
+                        Toast.fire({
+                        type: 'success',
+                        title: data.success,
+                        })
+
+                }else{
+
+            Toast.fire({
+                        type: 'error',
+                        title: data.error,
+                        })
+                    }
+
+              // End Message
+
+        })
+        .catch(error => {
+            console.error(error);
+        });
     }
 </script>
 
