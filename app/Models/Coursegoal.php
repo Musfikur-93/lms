@@ -9,4 +9,5 @@ class Coursegoal extends Model
 {
     use HasFactory;
     protected $guarded = [];
+
 }
