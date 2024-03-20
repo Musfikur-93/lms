@@ -10,6 +10,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\CourseController;
 
+use App\Http\Controllers\Frontend\IndexController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -147,4 +149,8 @@ Route::middleware(['auth','roles:instructor'])->group(function(){
 
 }); // End Instructor Group Middleware
 
+
+    //  Route Accessable for All
     Route::get('/instructor/login', [InstructorController::class, 'InstructorLogin'])->name('instructor.login');
+    Route::get('/course/details/{id}/{slug}', [IndexController::class, 'CourseDetails']);
+    // End Route Accessable for All

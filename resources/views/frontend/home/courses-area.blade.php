@@ -36,7 +36,7 @@
             <div class="col-lg-4 responsive-column-half">
                 <div class="card card-item card-preview" data-tooltip-content="#tooltip_content_1{{ $course->id }}">
                     <div class="card-image">
-                        <a href="course-details.html" class="d-block">
+                        <a href="{{ url('course/details/'.$course->id.'/'.$course->course_name_slug) }}" class="d-block">
                             <img class="card-img-top lazy" src="{{ asset($course->course_image) }}" data-src="{{ asset($course->course_image) }}" alt="Card image cap">
                         </a>
 
@@ -67,7 +67,7 @@
                     </div><!-- end card-image -->
                     <div class="card-body">
                         <h6 class="ribbon ribbon-blue-bg fs-14 mb-3">{{ $course->label }}</h6>
-                        <h5 class="card-title"><a href="course-details.html">{{ Str::limit($course->course_name,40) }}</a></h5>
+                        <h5 class="card-title"><a href="{{ url('course/details/'.$course->id.'/'.$course->course_name_slug) }}">{{ Str::limit($course->course_name,40) }}</a></h5>
                         <p class="card-text"><a href=" ">{{ $course['user']['name'] }}</a></p>
                         <div class="rating-wrap d-flex align-items-center py-2">
                             <div class="review-stars">
