@@ -25,7 +25,12 @@ class IndexController extends Controller
         $ins_id = $course->instructor_id;
         $instructorCourses = Course::where('instructor_id',$ins_id)->orderBy('id','DESC')->get();
 
-        return view('frontend.course.course_details',compact('course','goals','instructorCourses'));
+        $category = Category::latest()->get();
+
+        $cat_id = $course->category_id;
+        $relatedCourse = Course::where('category_id',$cat_id)->where('id','!=', $id)->orderBy('id','DESC')->limit(3)->get();
+
+        return view('frontend.course.course_details',compact('course','goals','instructorCourses','category','relatedCourse'));
 
     } // End Method
 
