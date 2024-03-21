@@ -37,7 +37,7 @@
                         <span class="student-total pl-2">540,815 students</span>
                     </div>
                 </div><!-- end d-flex -->
-                <p class="pt-2 pb-1">Created by <a href="teacher-detail.html" class="text-color hover-underline">{{ $course['user']['name'] }}</a></p>
+                <p class="pt-2 pb-1">Created by <a href=" " class="text-color hover-underline">{{ $course['user']['name'] }}</a></p>
                 <div class="d-flex flex-wrap align-items-center">
                     <p class="pr-3 d-flex align-items-center">
                         <svg class="svg-icon-color-gray mr-1" width="16px" viewBox="0 0 24 24"><path d="M23 12l-2.44-2.78.34-3.68-3.61-.82-1.89-3.18L12 3 8.6 1.54 6.71 4.72l-3.61.81.34 3.68L1 12l2.44 2.78-.34 3.69 3.61.82 1.89 3.18L12 21l3.4 1.46 1.89-3.18 3.61-.82-.34-3.68L23 12zm-10 5h-2v-2h2v2zm0-4h-2V7h2v6z"></path></svg>
@@ -55,9 +55,6 @@
                     </button>
                     <button class="btn theme-btn theme-btn-sm theme-btn-transparent lh-28 mr-2 mb-2" data-toggle="modal" data-target="#shareModal">
                         <i class="la la-share mr-1"></i>Share
-                    </button>
-                    <button class="btn theme-btn theme-btn-sm theme-btn-transparent lh-28 mb-2" data-toggle="modal" data-target="#reportModal">
-                        <i class="la la-flag mr-1"></i>Report abuse
                     </button>
                 </div>
             </div><!-- end breadcrumb-content -->
@@ -80,31 +77,20 @@
                        <h3 class="fs-24 font-weight-semi-bold pb-3">What you'll learn?</h3>
                        <ul class="generic-list-item overview-list-item">
                         @foreach ($goals as $goal)
-
                            <li><i class="la la-check mr-1 text-black"></i>{{ $goal->goal_name }} </li>
                         @endforeach
                        </ul>
                    </div><!-- end course-overview-card -->
-                   <div class="course-overview-card bg-gray p-4 rounded">
-                       <h3 class="fs-16 font-weight-semi-bold">Curated for the <a href="for-business.html" class="text-color hover-underline">Aduca for Business</a> collection</h3>
-                   </div><!-- end course-overview-card -->
+
                    <div class="course-overview-card">
                        <h3 class="fs-24 font-weight-semi-bold pb-3">Requirements</h3>
                        <ul class="generic-list-item generic-list-item-bullet fs-15">
                            <li>{{ $course->prerequisites }}</li>
                        </ul>
                    </div><!-- end course-overview-card -->
-                    <div class="course-overview-card border border-gray p-4 rounded">
-                       <h3 class="fs-20 font-weight-semi-bold">Top companies trust Aduca</h3>
-                       <p class="fs-15 pb-1">Get your team access to Aduca's top 5,000+ courses</p>
-                        <div class="pb-3">
-                            <img width="85" class="mr-3" src="{{ asset('frontend/images/sponsor-img.png') }}" alt="company logo">
-                            <img width="80" class="mr-3" src="{{ asset('frontend/images/sponsor-img2.png') }}" alt="company logo">
-                            <img width="80" class="mr-3" src="{{ asset('frontend/images/sponsor-img3.png') }}" alt="company logo">
-                            <img width="70" class="mr-3" src="{{ asset('frontend/images/sponsor-img4.png') }}" alt="company logo">
-                        </div>
-                        <a href="for-business.html" class="btn theme-btn theme-btn-sm">Try Aduca for Business</a>
-                   </div><!-- end course-overview-card -->
+
+
+
                    <div class="course-overview-card">
                        <h3 class="fs-24 font-weight-semi-bold pb-3">Description</h3>
                        <p class="fs-15 pb-2">{{ $course->description }}</p>
@@ -451,7 +437,7 @@
                         <div class="card-body">
                             <div class="preview-course-video">
                                 <a href="javascript:void(0)" data-toggle="modal" data-target="#previewModal">
-                                    <img src="images/img-loading.png" data-src="images/preview-img.jpg" alt="course-img" class="w-100 rounded lazy">
+                                    <img src="{{ asset($course->course_image) }}" data-src="{{ asset($course->course_image) }}" alt="course-img" class="w-100 rounded lazy">
                                     <div class="preview-course-video-content">
                                         <div class="overlay"></div>
                                         <div class="play-button">
@@ -469,14 +455,27 @@
                                     </div>
                                 </a>
                             </div><!-- end preview-course-video -->
+
+
                             <div class="preview-course-feature-content pt-40px">
                                 <p class="d-flex align-items-center pb-2">
-                                    <span class="fs-35 font-weight-semi-bold text-black">$76.99</span>
-                                    <span class="before-price mx-1">$104.99</span>
-                                    <span class="price-discount">24% off</span>
-                                </p>
-                                <p class="preview-price-discount-text pb-35px">
-                                    <span class="text-color-3">4 days</span> left at this price!
+                                    @if ($course->discount_price == NULL)
+                                        <span class="fs-35 font-weight-semi-bold text-black">${{ $course->selling_price }}</span>
+                                    @else
+                                        <span class="fs-35 font-weight-semi-bold text-black">${{ $course->discount_price }}</span>
+                                        <span class="before-price mx-1">${{ $course->selling_price }}</span>
+                                    @endif
+
+                                    @php
+                                    $amount = $course->selling_price - $course->discount_price;
+                                    $discount = ($amount/$course->selling_price) * 100;
+                                    @endphp
+
+                                    @if ($course->discount_price == NULL)
+                                        <span class="price-discount">New</span>
+                                    @else
+                                        <span class="price-discount">{{ round($discount) }}% off</span>
+                                    @endif
                                 </p>
                                 <div class="buy-course-btn-box">
                                     <button type="button" class="btn theme-btn w-100 mb-2"><i class="la la-shopping-cart fs-18 mr-1"></i> Add to cart</button>
@@ -486,20 +485,12 @@
                                 <div class="preview-course-incentives">
                                     <h3 class="card-title fs-18 pb-2">This course includes</h3>
                                     <ul class="generic-list-item pb-3">
-                                        <li><i class="la la-play-circle-o mr-2 text-color"></i>2.5 hours on-demand video</li>
-                                        <li><i class="la la-file mr-2 text-color"></i>34 articles</li>
-                                        <li><i class="la la-file-text mr-2 text-color"></i>12 downloadable resources</li>
-                                        <li><i class="la la-code mr-2 text-color"></i>51 coding exercises</li>
+                                        <li><i class="la la-play-circle-o mr-2 text-color"></i>{{ $course->duration }} hours on-demand video</li>
+                                        <li><i class="la la-file-text mr-2 text-color"></i>{{ $course->resources }} downloadable resources</li>
                                         <li><i class="la la-key mr-2 text-color"></i>Full lifetime access</li>
                                         <li><i class="la la-television mr-2 text-color"></i>Access on mobile and TV</li>
                                         <li><i class="la la-certificate mr-2 text-color"></i>Certificate of Completion</li>
                                     </ul>
-                                    <div class="section-block"></div>
-                                    <div class="buy-for-team-container pt-4">
-                                        <h3 class="fs-18 font-weight-semi-bold pb-2">Training 5 or more people?</h3>
-                                        <p class="lh-24 pb-3">Get your team access to 3,000+ top Aduca courses anytime, anywhere.</p>
-                                        <a href="for-business.html" class="btn theme-btn theme-btn-sm theme-btn-transparent lh-30 w-100">Try Aduca for Business</a>
-                                    </div>
                                 </div><!-- end preview-course-incentives -->
                             </div><!-- end preview-course-content -->
                         </div>
@@ -509,15 +500,14 @@
                             <h3 class="card-title fs-18 pb-2">Course Features</h3>
                             <div class="divider"><span></span></div>
                             <ul class="generic-list-item generic-list-item-flash">
-                                <li class="d-flex align-items-center justify-content-between"><span><i class="la la-clock mr-2 text-color"></i>Duration</span> 2.5 hours</li>
-                                <li class="d-flex align-items-center justify-content-between"><span><i class="la la-play-circle-o mr-2 text-color"></i>Lectures</span> 17</li>
-                                <li class="d-flex align-items-center justify-content-between"><span><i class="la la-file-text-o mr-2 text-color"></i>Resources</span> 12</li>
-                                <li class="d-flex align-items-center justify-content-between"><span><i class="la la-bolt mr-2 text-color"></i>Quizzes</span> 26</li>
-                                <li class="d-flex align-items-center justify-content-between"><span><i class="la la-eye mr-2 text-color"></i>Preview Lessons</span> 4</li>
+                                <li class="d-flex align-items-center justify-content-between"><span><i class="la la-clock mr-2 text-color"></i>Duration</span> {{ $course->duration }} hours</li>
+
+                                <li class="d-flex align-items-center justify-content-between"><span><i class="la la-file-text-o mr-2 text-color"></i>Resources</span> {{ $course->resources }}</li>
+                                <li class="d-flex align-items-center justify-content-between"><span><i class="la la-bolt mr-2 text-color"></i>Quizzes</span> Depend on Course</li>
                                 <li class="d-flex align-items-center justify-content-between"><span><i class="la la-language mr-2 text-color"></i>Language</span> English</li>
-                                <li class="d-flex align-items-center justify-content-between"><span><i class="la la-lightbulb mr-2 text-color"></i>Skill level</span> All levels</li>
+                                <li class="d-flex align-items-center justify-content-between"><span><i class="la la-lightbulb mr-2 text-color"></i>Skill level</span> {{ $course->label }}</li>
                                 <li class="d-flex align-items-center justify-content-between"><span><i class="la la-users mr-2 text-color"></i>Students</span> 30,506</li>
-                                <li class="d-flex align-items-center justify-content-between"><span><i class="la la-certificate mr-2 text-color"></i>Certificate</span> Yes</li>
+                                <li class="d-flex align-items-center justify-content-between"><span><i class="la la-certificate mr-2 text-color"></i>Certificate</span> {{ $course->certificate }}</li>
                             </ul>
                         </div>
                     </div><!-- end card -->
@@ -744,18 +734,17 @@
             <div class="modal-header border-bottom-gray">
                 <div class="pr-2">
                     <p class="pb-2 font-weight-semi-bold">Course Preview</p>
-                    <h5 class="modal-title fs-19 font-weight-semi-bold lh-24" id="previewModalTitle">Java Programming Masterclass for Software Developers</h5>
+                    <h5 class="modal-title fs-19 font-weight-semi-bold lh-24" id="previewModalTitle">{{ $course->course_name }}</h5>
                 </div>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true" class="la la-times"></span>
                 </button>
             </div><!-- end modal-header -->
+
             <div class="modal-body">
-                <video controls crossorigin playsinline poster="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.jpg" id="player">
+                <video controls crossorigin playsinline poster="{{ asset($course->course_image) }}" id="player">
                     <!-- Video files -->
-                    <source src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-576p.mp4" type="video/mp4"/>
-                    <source src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-720p.mp4" type="video/mp4"/>
-                    <source src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-1080p.mp4" type="video/mp4"/>
+                    <source src="{{ asset($course->video) }}" type="video/mp4"/>
                 </video>
             </div><!-- end modal-body -->
         </div><!-- end modal-content -->
@@ -763,51 +752,6 @@
 </div><!-- end modal -->
 
 <!-- Modal -->
-<div class="modal fade modal-container" id="reportModal" tabindex="-1" role="dialog" aria-labelledby="reportModalTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header border-bottom-gray">
-                <div class="pr-2">
-                    <h5 class="modal-title fs-19 font-weight-semi-bold lh-24" id="reportModalTitle">Report Abuse</h5>
-                    <p class="pt-1 fs-14 lh-24">Flagged content is reviewed by Aduca staff to determine whether it violates Terms of Service or Community Guidelines. If you have a question or technical issue, please contact our
-                        <a href="contact.html" class="text-color hover-underline">Support team here</a>.</p>
-                </div>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true" class="la la-times"></span>
-                </button>
-            </div><!-- end modal-header -->
-            <div class="modal-body">
-                <form method="post">
-                    <div class="input-box">
-                        <label class="label-text">Select Report Type</label>
-                        <div class="form-group">
-                            <div class="select-container w-auto">
-                                <select class="select-container-select">
-                                    <option value>-- Select One --</option>
-                                    <option value="1">Inappropriate Course Content</option>
-                                    <option value="2">Inappropriate Behavior</option>
-                                    <option value="3">Aduca Policy Violation</option>
-                                    <option value="4">Spammy Content</option>
-                                    <option value="5">Other</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="input-box">
-                        <label class="label-text">Write Message</label>
-                        <div class="form-group">
-                            <textarea class="form-control form--control pl-3" name="message" placeholder="Provide additional details here..." rows="5"></textarea>
-                        </div>
-                    </div>
-                    <div class="btn-box text-right pt-2">
-                        <button type="button" class="btn font-weight-medium mr-3" data-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn theme-btn theme-btn-sm lh-30">Submit <i class="la la-arrow-right icon ml-1"></i></button>
-                    </div>
-                </form>
-            </div><!-- end modal-body -->
-        </div><!-- end modal-content -->
-    </div><!-- end modal-dialog -->
-</div><!-- end modal -->
 
 
 
