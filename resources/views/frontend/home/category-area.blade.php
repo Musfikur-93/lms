@@ -28,6 +28,7 @@
                 @php
                     $course = App\Models\Course::where('category_id',$cat->id)->get();
                 @endphp
+
                 <div class="col-lg-4 responsive-column-half">
                     <div class="category-item">
                         <img  class="cat__img lazy" src="{{ asset($cat->image) }}" data-src="{{ asset($cat->image) }}" alt="Category image">

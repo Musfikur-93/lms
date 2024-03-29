@@ -68,7 +68,7 @@
                     <div class="card-body">
                         <h6 class="ribbon ribbon-blue-bg fs-14 mb-3">{{ $course->label }}</h6>
                         <h5 class="card-title"><a href="{{ url('course/details/'.$course->id.'/'.$course->course_name_slug) }}">{{ Str::limit($course->course_name,40) }}</a></h5>
-                        <p class="card-text"><a href=" ">{{ $course['user']['name'] }}</a></p>
+                        <p class="card-text"><a href="{{ route('instructor.details',$course->instructor_id) }}">{{ $course['user']['name'] }}</a></p>
                         <div class="rating-wrap d-flex align-items-center py-2">
                             <div class="review-stars">
                                 <span class="rating-number">4.4</span>
@@ -88,7 +88,7 @@
                                 <p class="card-price text-black font-weight-bold">${{ $course->discount_price }} <span class="before-price font-weight-medium">${{ $course->selling_price }}</span></p>
                             @endif
 
-                            <div class="icon-element icon-element-sm shadow-sm cursor-pointer" title="Add to Wishlist"><i class="la la-heart-o"></i></div>
+                            <div class="icon-element icon-element-sm shadow-sm cursor-pointer" title="Add to Wishlist" id="{{ $course->id }}" onclick="addToWishList(this.id)"><i class="la la-heart-o"></i></div>
                         </div>
 
                     </div><!-- end card-body -->
@@ -112,13 +112,13 @@
                         <div class="col-lg-4 responsive-column-half">
                             <div class="card card-item card-preview" data-tooltip-content="#tooltip_content_2">
                                 <div class="card-image">
-                                    <a href="course-details.html" class="d-block">
+                                    <a href="{{ url('course/details/'.$course->id.'/'.$course->course_name_slug) }}" class="d-block">
                                         <img class="card-img-top lazy" src="{{ asset($course->course_image) }}" data-src="{{ asset($course->course_image) }}" alt="Card image cap">
                                     </a>
                                 </div><!-- end card-image -->
                                 <div class="card-body">
                                     <h6 class="ribbon ribbon-blue-bg fs-14 mb-3">{{ $course->label }}</h6>
-                                    <h5 class="card-title"><a href="course-details.html">{{ Str::limit($course->course_name,40) }}</a></h5>
+                                    <h5 class="card-title"><a href="{{ url('course/details/'.$course->id.'/'.$course->course_name_slug) }}">{{ Str::limit($course->course_name,40) }}</a></h5>
                                     <p class="card-text"><a href=" ">{{ $course['user']['name'] }}</a></p>
                                     <div class="rating-wrap d-flex align-items-center py-2">
                                         <div class="review-stars">
@@ -171,7 +171,7 @@
         <div class="card card-item">
             <div class="card-body">
                 <p class="card-text pb-2">By <a href="">{{ $item['user']['name'] }}</a></p>
-                <h5 class="card-title pb-1"><a href="course-details.html">{{ $item->course_name }}</a></h5>
+                <h5 class="card-title pb-1"><a href="{{ url('course/details/'.$item->id.'/'.$item->course_name_slug) }}">{{ $item->course_name }}</a></h5>
                 <div class="d-flex align-items-center pb-1">
                     @if ($item->bestseller == 1)
                         <h6 class="ribbon fs-14 mr-2">Bestseller</h6>
@@ -197,6 +197,7 @@
                 </ul>
                 <div class="d-flex justify-content-between align-items-center">
                     <a href="#" class="btn theme-btn flex-grow-1 mr-3"><i class="la la-shopping-cart mr-1 fs-18"></i> Add to Cart</a>
+
                     <div class="icon-element icon-element-sm shadow-sm cursor-pointer" title="Add to Wishlist"><i class="la la-heart-o"></i></div>
                 </div>
             </div>
