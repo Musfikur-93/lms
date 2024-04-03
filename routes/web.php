@@ -12,6 +12,7 @@ use App\Http\Controllers\Backend\CourseController;
 
 use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\Frontend\WishListController;
+use App\Http\Controllers\Frontend\CartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -173,4 +174,10 @@ Route::middleware(['auth','roles:instructor'])->group(function(){
     Route::get('/subcategory/{id}/{slug}', [IndexController::class, 'SubCategoryCourse']);
     Route::get('/instructor/details/{id}', [IndexController::class, 'InstructorDetails'])->name('instructor.details');
     Route::post('/add-to-wishlist/{course_id}', [WishListController::class, 'AddToWishList']);
+    Route::post('/cart/data/store/{id}', [CartController::class, 'AddToCart']);
+    Route::get('/cart/data/', [CartController::class, 'CartData']);
+
+    //Get Data from Mini Cart
+    Route::get('/course/mini/cart/', [CartController::class, 'AddMiniCart']);
+    Route::get('/minicart/course/remove/{rowId}', [CartController::class, 'RemoveMiniCart']);
     // End Route Accessable for All

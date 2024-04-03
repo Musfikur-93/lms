@@ -22,7 +22,7 @@
                   toast: true,
                   position: 'top-end',
                   showConfirmButton: false,
-                  timer: 6000
+                  timer: 3000
             })
             if ($.isEmptyObject(data.error)) {
 
@@ -107,13 +107,14 @@
             success:function(data){
 
             wishlist();
+
             // Start Message
 
             const Toast = Swal.mixin({
                   toast: true,
                   position: 'top-end',
                   showConfirmButton: false,
-                  timer: 6000
+                  timer: 3000
             })
             if ($.isEmptyObject(data.error)) {
 
@@ -142,6 +143,148 @@
 
     // Wishlist Remove End
 
+</script>
+
+{{-- // End Load wishlist Data --}}
+
+
+
+{{-- // Start Add to Cart --}}
+<script type="text/javascript">
+
+    function addToCart(courseId, courseName, instructorId, slug){
+
+        $.ajax({
+            type: "POST",
+            dataType: 'json',
+            data: {
+                _token: '{{ csrf_token() }}',
+                course_name: courseName,
+                course_name_slug: slug,
+                instructor: instructorId,
+            },
+
+            url: "/cart/data/store/"+ courseId,
+
+            success: function(data){
+
+            miniCart();
+
+            // Start Message
+
+            const Toast = Swal.mixin({
+                  toast: true,
+                  position: 'top-end',
+                  showConfirmButton: false,
+                  timer: 3000
+            })
+            if ($.isEmptyObject(data.error)) {
+
+                    Toast.fire({
+                    type: 'success',
+                    icon: 'success',
+                    title: data.success,
+                    })
+
+            }else{
+
+           Toast.fire({
+                    type: 'error',
+                    icon: 'error',
+                    title: data.error,
+                    })
+                }
+
+              // End Message
+
+            }
+
+        })
+
+    }
 
 </script>
-{{-- // End Load wishlist Data --}}
+{{-- // End Add to Cart --}}
+
+
+{{-- /// Start Mini Cart  // --}}
+<script type="text/javascript">
+    function miniCart(){
+        $.ajax({
+            type: 'GET',
+            url: '/course/mini/cart',
+            dataType: 'json',
+            success:function(response){
+
+                $('span[id="cartSubTotal"]').text(response.cartTotal);
+                $('#cartQty').text(response.cartQty);
+
+                var miniCart = ""
+                $.each(response.carts, function(key,value){
+                    miniCart += `<li class="media media-card">
+                            <a href="shopping-cart.html" class="media-img">
+                                <img src="/${value.options.image}" alt="Cart image">
+                            </a>
+                            <div class="media-body">
+                                <h5><a href="/course/details/${value.id}/${value.options.slug}"> ${value.name}</a></h5>
+                                 <span class="d-block fs-14">$${value.price}</span>
+                                 <a type="submit" id="${value.rowId}" onclick="miniCartRemove(this.id)"><i class="la la-times"></i></a>
+                            </div>
+                        </li>
+                        `
+                });
+                $('#miniCart').html(miniCart);
+            }
+        })
+    }
+
+    miniCart();
+
+    // Mini Cart Remove Start
+
+        function miniCartRemove(rowId){
+            $.ajax({
+                type: 'GET',
+                dataType: 'json',
+                url: '/minicart/course/remove/'+rowId,
+
+                success:function(data){
+
+                    miniCart();
+
+                    // Start Message
+
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 3000
+                    })
+                    if ($.isEmptyObject(data.error)) {
+
+                            Toast.fire({
+                            type: 'success',
+                            icon: 'success',
+                            title: data.success,
+                            })
+
+                    }else{
+
+                Toast.fire({
+                            type: 'error',
+                            icon: 'error',
+                            title: data.error,
+                            })
+                        }
+
+                    // End Message
+
+                }
+            })
+        }
+
+    // Mini Cart Remove End
+
+ </script>
+{{-- /// End Mini Cart // --}}
+
