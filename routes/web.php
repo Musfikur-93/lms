@@ -168,6 +168,7 @@ Route::middleware(['auth','roles:instructor'])->group(function(){
 
 
     //  Route Accessable for All
+
     Route::get('/instructor/login', [InstructorController::class, 'InstructorLogin'])->name('instructor.login');
     Route::get('/course/details/{id}/{slug}', [IndexController::class, 'CourseDetails']);
     Route::get('/category/{id}/{slug}', [IndexController::class, 'CategoryCourse']);
@@ -180,4 +181,14 @@ Route::middleware(['auth','roles:instructor'])->group(function(){
     //Get Data from Mini Cart
     Route::get('/course/mini/cart/', [CartController::class, 'AddMiniCart']);
     Route::get('/minicart/course/remove/{rowId}', [CartController::class, 'RemoveMiniCart']);
+
+    // Course  Section and Lecture All Route
+    Route::controller(CartController::class)->group(function(){
+
+        Route::get('/mycart','MyCart')->name('mycart');
+        Route::get('/get-cart-course','GetCartCourse');
+        Route::get('/cart-remove/{rowId}','CartRemove');
+
+    });
+
     // End Route Accessable for All
