@@ -110,6 +110,15 @@ Route::middleware(['auth','roles:admin'])->group(function(){
 
     });
 
+    // Admin courses All Route
+    Route::controller(AdminController::class)->group(function(){
+
+        Route::get('/admin/all/course','AdminAllCourse')->name('admin.all.course');
+        Route::post('/update/course/stauts','AdminCourseStatus')->name('update.course.stauts');
+        Route::get('/admin/course/details/{id}','AdminCourseDetails')->name('admin.course.details');
+
+    });
+
 
 
 }); // End Admin Group Middleware
