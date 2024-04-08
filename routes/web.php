@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\CourseController;
+use App\Http\Controllers\Backend\CouponController;
 
 use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\Frontend\WishListController;
@@ -119,9 +120,19 @@ Route::middleware(['auth','roles:admin'])->group(function(){
 
     });
 
+    // Admin coupon All Route
+    Route::controller(CouponController::class)->group(function(){
+
+        Route::get('/admin/all/coupon','AdminAllCoupon')->name('admin.all.coupon');
+        Route::get('/admin/add/coupon','AdminAddCoupon')->name('admin.add.coupon');
+        Route::post('/admin/store/coupon','AdminStoreCoupon')->name('admin.store.coupon');
+
+    });
+
 
 
 }); // End Admin Group Middleware
+
 
     Route::get('/admin/login', [AdminController::class, 'AdminLogin'])->name('admin.login');
     Route::get('/become/instructor', [AdminController::class, 'BecomeInstructor'])->name('become.instructor');
