@@ -15,6 +15,8 @@ use Intervention\Image\Drivers\Gd\Driver;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Gloudemans\Shoppingcart\Facades\Cart;
+use App\Models\Coupon;
+use Illuminate\Support\Facades\Session;
 
 class CartController extends Controller
 {
@@ -132,6 +134,49 @@ class CartController extends Controller
 
         Cart::remove($rowId);
         return response()->json(['success' => 'Course Remove from Cart']);
+
+    } // End Method
+
+
+    public function CouponApply(Request $request){
+
+        $coupon = Coupon::where('coupon_name',$request->coupon_name)->where('coupon_validity','>=',Carbon::now()->format('Y-m-d'))->first();
+
+        if ($coupon) {
+            Session::put('coupon',[
+                'coupon_name' => $coupon->coupon_name,
+                'coupon_discount' => $coupon->coupon_discount,
+                'discount_amount' => round(Cart::total() * $coupon->coupon_discount/100),
+                'total_amount' => round(Cart::total() - Cart::total() * $coupon->coupon_discount/100 )
+            ]);
+
+            return response()->json(array(
+                'validity' => true,
+                'success' => 'Coupon Applied Successfully'
+            ));
+
+        }else {
+            return response()->json(['error' => 'Invaild Coupon']);
+        }
+
+    } // End Method
+
+
+    public function CouponCalculation(){
+
+        if (Session::has('coupon')) {
+            return response()->json(array(
+                'subtotal' => Cart::total(),
+                'coupon_name' => session()->get('coupon')['coupon_name'],
+                'coupon_discount' => session()->get('coupon')['coupon_discount'],
+                'discount_amount' => session()->get('coupon')['discount_amount'],
+                'total_amount' => session()->get('coupon')['total_amount'],
+            ));
+        }else{
+            return response()->json(array(
+                'total' => Cart::total(),
+            ));
+        }
 
     } // End Method
 

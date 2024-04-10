@@ -389,3 +389,109 @@ function cartRemove(rowId){
 </script>
 {{-- /// End MyCart // --}}
 
+
+
+{{-- /// Apply Coupon Start  // --}}
+<script type="text/javascript">
+
+    function applyCoupon(){
+        var coupon_name = $('#coupon_name').val();
+
+        $.ajax({
+            type: "POST",
+            dataType: 'json',
+            data: {coupon_name:coupon_name},
+            url: "/coupon-apply",
+
+
+            success:function(data){
+
+            if (data.validity == true) {
+                $('#couponField').hide();
+            }
+
+            // Start Message
+            const Toast = Swal.mixin({
+                  toast: true,
+                  position: 'top-end',
+                  showConfirmButton: false,
+                  timer: 3000
+            })
+            if ($.isEmptyObject(data.error)) {
+
+                    Toast.fire({
+                    type: 'success',
+                    icon: 'success',
+                    title: data.success,
+                    })
+            }else{
+
+           Toast.fire({
+                    type: 'error',
+                    icon: 'error',
+                    title: data.error,
+                    })
+                }
+              // End Message
+            }
+        })
+    }
+
+    /// Start Coupon Calculation Method
+    function couponCalculation(){
+        $.ajax({
+            type: 'GET',
+            dataType: 'json',
+            url: "/coupon-calculation",
+
+            success:function(data){
+
+                if (data.total) {
+                    $('#couponCalField').html(
+                        `<h3 class="fs-18 font-weight-bold pb-3">Cart Totals</h3>
+                <div class="divider"><span></span></div>
+                <ul class="generic-list-item pb-4">
+                    <li class="d-flex align-items-center justify-content-between font-weight-semi-bold">
+                        <span class="text-black">Subtotal:$</span>
+                        <span>$${data.total} </span>
+                    </li>
+                    <li class="d-flex align-items-center justify-content-between font-weight-semi-bold">
+                        <span class="text-black">Total:$</span>
+                        <span> $${data.total}</span>
+                    </li>
+                </ul>`
+                    )
+
+                }else {
+                    $('#couponCalField').html(
+                        `<h3 class="fs-18 font-weight-bold pb-3">Cart Totals</h3>
+                <div class="divider"><span></span></div>
+                <ul class="generic-list-item pb-4">
+                    <li class="d-flex align-items-center justify-content-between font-weight-semi-bold">
+                        <span class="text-black">Subtotal: </span>
+                        <span>$${data.subtotal} </span>
+                    </li>
+                    <li class="d-flex align-items-center justify-content-between font-weight-semi-bold">
+                        <span class="text-black">Coupon Name : </span>
+                        <span>${data.coupon_name} </span>
+                    </li>
+                    <li class="d-flex align-items-center justify-content-between font-weight-semi-bold">
+                        <span class="text-black">Coupon Discount:</span>
+                        <span> $${data.discount_amount}</span>
+                    </li>
+                    <li class="d-flex align-items-center justify-content-between font-weight-semi-bold">
+                        <span class="text-black">Grand Total:</span>
+                        <span> $${data.total_amount}</span>
+                    </li>
+                </ul>`
+                    )
+                }
+            }
+        })
+    }
+
+couponCalculation();
+
+</script>
+
+{{-- /// End Apply Coupon  // --}}

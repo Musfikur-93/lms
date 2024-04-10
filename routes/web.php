@@ -126,6 +126,9 @@ Route::middleware(['auth','roles:admin'])->group(function(){
         Route::get('/admin/all/coupon','AdminAllCoupon')->name('admin.all.coupon');
         Route::get('/admin/add/coupon','AdminAddCoupon')->name('admin.add.coupon');
         Route::post('/admin/store/coupon','AdminStoreCoupon')->name('admin.store.coupon');
+        Route::get('/admin/edit/coupon/{id}','AdminEditCoupon')->name('admin.edit.coupon');
+        Route::post('/admin/update/coupon','AdminUpdateCoupon')->name('admin.update.coupon');
+        Route::get('/admin/delete/coupon/{id}','AdminDeleteCoupon')->name('admin.delete.coupon');
 
     });
 
@@ -210,5 +213,9 @@ Route::middleware(['auth','roles:instructor'])->group(function(){
         Route::get('/cart-remove/{rowId}','CartRemove');
 
     });
+
+    // Apply Coupon Route
+    Route::post('/coupon-apply', [CartController::class, 'CouponApply']);
+    Route::get('/coupon-calculation', [CartController::class, 'CouponCalculation']);
 
     // End Route Accessable for All
