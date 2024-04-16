@@ -219,4 +219,7 @@ Route::middleware(['auth','roles:instructor'])->group(function(){
     Route::get('/coupon-calculation', [CartController::class, 'CouponCalculation']);
     Route::get('/coupon-remove', [CartController::class, 'CouponRemove']);
 
+    // Checkout Page Route
+    Route::get('/checkout', [CartController::class, 'CheckoutCreate'])->name('checkout');
+
     // End Route Accessable for All

@@ -24,6 +24,10 @@ class CartController extends Controller
 
         $course = Course::find($id);
 
+        if (Session::has('coupon')) {
+            Session::forget('coupon');
+        }
+
         // Check if the course is already in the cart
         $cartItem = Cart::search(function ($cartItem, $rowId) use ($id){
             return $cartItem->id === $id;
@@ -133,6 +137,20 @@ class CartController extends Controller
     public function CartRemove($rowId){
 
         Cart::remove($rowId);
+
+        if (Session::has('coupon')) {
+            $coupon_name = Session::get('coupon')['coupon_name'];
+            $coupon = Coupon::where('coupon_name',$coupon_name)->first();
+
+            Session::put('coupon',[
+                'coupon_name' => $coupon->coupon_name,
+                'coupon_discount' => $coupon->coupon_discount,
+                'discount_amount' => round(Cart::total() * $coupon->coupon_discount/100),
+                'total_amount' => round(Cart::total() - Cart::total() * $coupon->coupon_discount/100 )
+            ]);
+
+        }
+
         return response()->json(['success' => 'Course Remove from Cart']);
 
     } // End Method
@@ -185,6 +203,36 @@ class CartController extends Controller
 
         Session::forget('coupon');
         return response()->json(['success' => 'Coupon Remove Successfully']);
+
+    } // End Method
+
+
+    /////////////// Checkout Method ////////////////////
+
+    public function CheckoutCreate(){
+
+        if (Auth::check()) {
+
+            if (Cart::total() > 0) {
+                $carts = Cart::content();
+                $cartTotal = Cart::total();
+                $cartQty = Cart::count();
+
+                return view('frontend.checkout.checkout_view',compact('carts','cartTotal','cartQty'));
+            }else{
+                $notification = array(
+                    'message' => 'Add At list One Course',
+                    'alert-type' => 'error'
+                );
+                return redirect()->to('/')->with($notification);
+            }
+        }else{
+            $notification = array(
+                'message' => 'You Need to Login First',
+                'alert-type' => 'error'
+            );
+            return redirect()->route('login')->with($notification);
+        }
 
     } // End Method
 

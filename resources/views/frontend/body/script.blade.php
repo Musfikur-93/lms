@@ -352,6 +352,7 @@ function cartRemove(rowId){
 
                     miniCart();
                     cart();
+                    couponCalculation();
 
                     // Start Message
 
