@@ -222,4 +222,8 @@ Route::middleware(['auth','roles:instructor'])->group(function(){
     // Checkout Page Route
     Route::get('/checkout', [CartController::class, 'CheckoutCreate'])->name('checkout');
 
+    // Payment Page Route
+    Route::post('/payment', [CartController::class, 'Payment'])->name('payment');
+
+
     // End Route Accessable for All

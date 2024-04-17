@@ -34,7 +34,9 @@
                     <div class="card-body">
                         <h3 class="card-title fs-22 pb-3">Billing Details</h3>
                         <div class="divider"><span></span></div>
-                        <form method="post" class="row">
+                        <form method="post" class="row" action="{{ route('payment') }}" enctype="multipart/form-data">
+                            @csrf
+
                             <div class="input-box col-lg-6">
                                 <label class="label-text">Name </label>
                                 <div class="form-group">
@@ -65,8 +67,6 @@
                                 </div>
                             </div><!-- end input-box -->
 
-
-                        </form>
                     </div><!-- end card-body -->
                 </div><!-- end card -->
 
@@ -90,10 +90,6 @@
 
                             </div><!-- end payment-tab -->
 
-
-
-                            <!-- end payment-tab -->
-
                         </div>
                     </div><!-- end card-body -->
                 </div><!-- end card -->
@@ -105,6 +101,13 @@
                         <div class="divider"><span></span></div>
                         <div class="order-details-lists">
                             @foreach ($carts as $item)
+
+                            <input type="hidden" name="slug[]" value="{{ $item->options->slug }}">
+                            <input type="hidden" name="course_id[]" value="{{ $item->id }}">
+                            <input type="hidden" name="course_title[]" value="{{ $item->name }}">
+                            <input type="hidden" name="price[]" value="{{ $item->price }}">
+                            <input type="hidden" name="instructor_id[]" value="{{ $item->options->instructor }}">
+
                             <div class="media media-card border-bottom border-bottom-gray pb-3 mb-3">
                                 <a href="{{ url('course/details/'.$item->id.'/'.$item->options->slug) }}" class="media-img">
                                     <img src="{{ asset($item->options->image) }}" alt="Cart image">
@@ -148,6 +151,8 @@
                             </li>
                         </ul>
 
+                        <input type="hidden" name="total" value="{{ $cartTotal }}">
+
                         @else
 
                         <ul class="generic-list-item generic-list-item-flash fs-15">
@@ -155,18 +160,20 @@
                                 <span class="text-black">Total:</span>
                                 <span>${{ $cartTotal }}</span>
                             </li>
+                            <input type="hidden" name="total" value="{{ $cartTotal }}">
                         </ul>
 
                         @endif
 
-                        <div class="btn-box border-top border-top-gray pt-3">
-                            <a href="checkout.html" class="btn theme-btn w-100">Proceed <i class="la la-arrow-right icon ml-1"></i></a>
+                         <div class="btn-box border-top border-top-gray pt-3">
+                            <button type="submit" class="btn theme-btn w-100">Proceed <i class="la la-arrow-right icon ml-1"></i></button>
                         </div>
                     </div><!-- end card-body -->
                 </div><!-- end card -->
             </div><!-- end col-lg-5 -->
         </div><!-- end row -->
     </div><!-- end container -->
+  </form>
 </section>
 <!-- ================================
        END CONTACT AREA
