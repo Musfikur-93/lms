@@ -42,7 +42,7 @@
                             <td>
                                 <img src="{{ asset($item->course_image) }}" alt="" style="width: 70px; height: 40px;">
                             </td>
-                            <td>{{ $item->course_name }}</td>
+                            <td>{{ Str::limit($item->course_name, 70) }}</td>
                             <td>{{ $item['category']['category_name'] }}</td>
                             <td>{{ $item->selling_price }}</td>
                             <td>{{ $item->discount_price }}</td>

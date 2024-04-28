@@ -92,7 +92,7 @@
                 <li> <a href="{{ route('admin.pending.order') }}"><i class='bx bx-radio-circle'></i>Pending Order</a>
                 </li>
 
-                <li> <a href="{{ route('smtp.setting') }}"><i class='bx bx-radio-circle'></i>Confirm Order</a>
+                <li> <a href="{{ route('admin.confirm.order') }}"><i class='bx bx-radio-circle'></i>Confirm Order</a>
                 </li>
             </ul>
         </li>
