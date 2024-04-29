@@ -58,6 +58,13 @@ Route::middleware('auth')->group(function () {
     });
 
 
+    // User My Course All Route
+    Route::controller(OrderController::class)->group(function(){
+
+        Route::get('/my/course','MyCourse')->name('my.course');
+
+    });
+
 
 
 
@@ -66,6 +73,7 @@ Route::middleware('auth')->group(function () {
  // End Auth Middleware
 
 require __DIR__.'/auth.php';
+
 
 
 // Admin Group Middleware
@@ -214,6 +222,7 @@ Route::middleware(['auth','roles:instructor'])->group(function(){
 
         Route::get('/instructor/all/order','InstructorAllOrder')->name('instructor.all.order');
         Route::get('/instructor/order/details/{payment_id}','InstructorOrderDetails')->name('instructor.order.details');
+        Route::get('/instructor/order/invoice/{payment_id}','InstructorOrderInvoice')->name('instructor.order.invoice');
 
     });
 
