@@ -109,11 +109,23 @@ class OrderController extends Controller
         $id = Auth::user()->id;
         $latestOrders = Order::where('user_id',$id)->select('course_id', \DB::raw('MAX(id) as max_id'))->groupBy('course_id');
 
-        $orderItem = Order::joinSub($latestOrders, 'latest_order', function($join){
+        $mycourse = Order::joinSub($latestOrders, 'latest_order', function($join){
             $join->on('orders.id', '=', 'latest_order.max_id');
         })->orderBy('latest_order.max_id','DESC')->get();
 
-        return view('frontend.mycourse.my_all_course',compact('orderItem'));
+        return view('frontend.mycourse.my_all_course',compact('mycourse'));
+
+    } // End Method
+
+
+    public function CourseView($course_id){
+
+        $id = Auth::user()->id;
+
+        $course = Order::where('course_id',$course_id)->where('user_id',$id)->first();
+        $section = CourseSection::where('course_id',$course_id)->orderBy('id','asc')->get();
+
+        return view('frontend.mycourse.course_view',compact('course','section'));
 
     } // End Method
 
