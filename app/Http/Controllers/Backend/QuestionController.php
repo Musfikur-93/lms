@@ -47,4 +47,40 @@ class QuestionController extends Controller
     } // End Method
 
 
+    public function QuestionDetails($id){
+
+        $question = Question::find($id);
+        $reply = Question::where('parent_id',$id)->orderBy('id','desc')->get();
+
+        return view('instructor.question.question_details',compact('question','reply'));
+
+    } // End Method
+
+
+    public function InstructorReplay(Request $request){
+
+        $que_id = $request->qid;
+        $user_id = $request->user_id;
+        $instructor_id = $request->instructor_id;
+        $course_id = $request->course_id;
+
+        Question::insert([
+            'course_id' => $course_id,
+            'instructor_id' => $instructor_id,
+            'user_id' => $user_id,
+            'parent_id' => $que_id,
+            'queston' => $request->queston,
+            'created_at' => Carbon::now(),
+        ]);
+
+        $notification = array(
+            'message' => 'Message Send Successfully',
+            'alert-type' => 'success',
+        );
+
+        return redirect()->route('instructor.all.question')->with($notification);
+
+    } // End Method
+
+
 }
