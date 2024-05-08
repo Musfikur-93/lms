@@ -284,5 +284,8 @@ Route::middleware(['auth','roles:instructor'])->group(function(){
     // Payment Page Route
     Route::post('/payment', [CartController::class, 'Payment'])->name('payment');
 
+    // Stripe Payment Page Route
+    Route::post('/stripe_order', [CartController::class, 'StripeOrder'])->name('stripe_order');
+
 
     // End Route Accessable for All
