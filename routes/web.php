@@ -18,6 +18,8 @@ use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\Frontend\WishListController;
 use App\Http\Controllers\Frontend\CartController;
 
+use App\Http\Middleware\RedirectIfAuthenticated;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -38,7 +40,7 @@ Route::get('/', [UserController::class, 'Index'])->name('index');
 // User
 Route::get('/dashboard', function () {
     return view('frontend.dashboard.index');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'roles:user', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
 
@@ -73,7 +75,6 @@ Route::middleware('auth')->group(function () {
 
         Route::post('/user/question','UserQuestion')->name('user.question');
     });
-
 
 
 
@@ -176,7 +177,7 @@ Route::middleware(['auth','roles:admin'])->group(function(){
 }); // End Admin Group Middleware
 
 
-    Route::get('/admin/login', [AdminController::class, 'AdminLogin'])->name('admin.login');
+    Route::get('/admin/login', [AdminController::class, 'AdminLogin'])->name('admin.login')->middleware(RedirectIfAuthenticated::class);
     Route::get('/become/instructor', [AdminController::class, 'BecomeInstructor'])->name('become.instructor');
     Route::post('/instructor/register', [AdminController::class, 'InstructorRegister'])->name('instructor.register');
 
@@ -244,13 +245,14 @@ Route::middleware(['auth','roles:instructor'])->group(function(){
     });
 
 
-
 }); // End Instructor Group Middleware
+
 
 
     //  Route Accessable for All
 
-    Route::get('/instructor/login', [InstructorController::class, 'InstructorLogin'])->name('instructor.login');
+    Route::get('/instructor/login', [InstructorController::class, 'InstructorLogin'])->name('instructor.login')->middleware(RedirectIfAuthenticated::class);
+
     Route::get('/course/details/{id}/{slug}', [IndexController::class, 'CourseDetails']);
     Route::get('/category/{id}/{slug}', [IndexController::class, 'CategoryCourse']);
     Route::get('/subcategory/{id}/{slug}', [IndexController::class, 'SubCategoryCourse']);
