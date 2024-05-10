@@ -97,38 +97,43 @@
             </ul>
         </li>
 
-        <li class="menu-label">Charts & Maps</li>
         <li>
             <a class="has-arrow" href="javascript:;">
-                <div class="parent-icon"><i class="bx bx-line-chart"></i>
+                <div class="parent-icon"><i class='bx bx-bookmark-heart'></i>
                 </div>
-                <div class="menu-title">Charts</div>
+                <div class="menu-title">Manage Report</div>
             </a>
             <ul>
-                <li> <a href="charts-apex-chart.html"><i class='bx bx-radio-circle'></i>Apex</a>
+                <li> <a href="{{ route('report.view') }}"><i class='bx bx-radio-circle'></i>Report View</a>
+                </li>
+            </ul>
+        </li>
+
+        <li class="menu-label">Setting</li>
+        <li>
+            <a class="has-arrow" href="javascript:;">
+                <div class="parent-icon"><i class="bx bx-key"></i>
+                </div>
+                <div class="menu-title">Password</div>
+            </a>
+            <ul>
+                <li> <a href="charts-apex-chart.html"><i class='bx bx-radio-circle'></i>Change Password</a>
                 </li>
             </ul>
         </li>
 
         <li>
             <a class="has-arrow" href="javascript:;">
-                <div class="parent-icon"><i class="bx bx-map-alt"></i>
+                <div class="parent-icon"><i class="bx bx-logout"></i>
                 </div>
-                <div class="menu-title">Maps</div>
+                <div class="menu-title">Logout</div>
             </a>
             <ul>
-                <li> <a href="map-google-maps.html"><i class='bx bx-radio-circle'></i>Google Maps</a>
+                <li> <a href="map-google-maps.html"><i class='bx bx-radio-circle'></i>Admin Logout</a>
                 </li>
             </ul>
         </li>
 
-        <li>
-            <a href="https://themeforest.net/user/codervent" target="_blank">
-                <div class="parent-icon"><i class="bx bx-support"></i>
-                </div>
-                <div class="menu-title">Support</div>
-            </a>
-        </li>
     </ul>
     <!--end navigation-->
 </div>
