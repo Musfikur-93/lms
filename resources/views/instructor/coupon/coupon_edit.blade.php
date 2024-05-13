@@ -23,7 +23,7 @@
             <form action="{{ route('instructor.update.coupon') }}" method="post" id="myForm" class="row g-3">
                 @csrf
 
-                <input type="hidden" name="course_id" value="{{ $coupon->id }}">
+                <input type="hidden" name="coupon_id" value="{{ $coupon->id }}">
 
                 <div class="form-group col-md-6">
                     <label for="input1" class="form-label">Coupon Name </label>

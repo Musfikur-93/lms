@@ -304,6 +304,9 @@ Route::middleware(['auth','roles:instructor'])->group(function(){
     Route::get('/coupon-calculation', [CartController::class, 'CouponCalculation']);
     Route::get('/coupon-remove', [CartController::class, 'CouponRemove']);
 
+    // Instructor Apply Coupon Route
+    Route::post('/ins-coupon-apply', [CartController::class, 'InsCouponApply']);
+
     // Checkout Page Route
     Route::get('/checkout', [CartController::class, 'CheckoutCreate'])->name('checkout');
 
