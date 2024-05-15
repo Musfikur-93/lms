@@ -14,6 +14,7 @@ use App\Http\Controllers\Backend\SettingController;
 use App\Http\Controllers\Backend\OrderController;
 use App\Http\Controllers\Backend\QuestionController;
 use App\Http\Controllers\Backend\ReportController;
+use App\Http\Controllers\Backend\ReviewController;
 
 use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\Frontend\WishListController;
@@ -75,6 +76,13 @@ Route::middleware('auth')->group(function () {
     Route::controller(QuestionController::class)->group(function(){
 
         Route::post('/user/question','UserQuestion')->name('user.question');
+    });
+
+
+    // User Review All Route
+    Route::controller(ReviewController::class)->group(function(){
+
+        Route::post('/store/review','StoreReview')->name('store.review');
     });
 
 
