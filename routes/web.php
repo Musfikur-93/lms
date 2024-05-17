@@ -191,13 +191,12 @@ Route::middleware(['auth','roles:admin'])->group(function(){
 
     });
 
-    // Admin Report View All Route
+    // Admin Review All Route
     Route::controller(ReviewController::class)->group(function(){
 
         Route::get('/admin/pending/review','AdminPendingReview')->name('admin.pending.review');
         Route::post('/update/review/stauts','UpdateReviewStatus')->name('update.review.stauts');
         Route::get('/admin/active/review','AdminActiveReview')->name('admin.active.review');
-
 
     });
 
@@ -282,6 +281,14 @@ Route::middleware(['auth','roles:instructor'])->group(function(){
         Route::get('/instructor/edit/coupon/{id}','InstructorEditCoupon')->name('instructor.edit.coupon');
         Route::post('/instructor/update/coupon','InstructorUpdateCoupon')->name('instructor.update.coupon');
         Route::get('/instructor/delete/coupon/{id}','InstructorDeleteCoupon')->name('instructor.delete.coupon');
+
+    });
+
+
+    // Instructor Review All Route
+    Route::controller(ReviewController::class)->group(function(){
+
+        Route::get('/instructor/all/review','InstructorAllReview')->name('instructor.all.review');
 
     });
 

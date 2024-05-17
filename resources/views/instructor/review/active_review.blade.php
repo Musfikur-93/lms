@@ -1,0 +1,102 @@
+@extends('instructor.instructor_dashboard')
+@section('instructor')
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+<style>
+    .large-checkbox{
+        transform: scale(1.5);
+    }
+</style>
+
+<div class="page-content">
+    <!--breadcrumb-->
+    <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+        <div class="ps-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0 p-0">
+                    <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">Active Review</li>
+                </ol>
+            </nav>
+        </div>
+        <div class="ms-auto">
+            <div class="btn-group">
+
+            </div>
+        </div>
+    </div>
+    <!--end breadcrumb-->
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table id="example" class="table table-striped table-bordered" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Sl </th>
+                            <th>Course Name</th>
+                            <th>User</th>
+                            <th>Comments</th>
+                            <th>Rating</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($review as $key => $item)
+                        <tr>
+                            <td>{{ $key+1 }}</td>
+                            <td>{{ $item['course']['course_name'] }}</td>
+                            <td>{{ $item['user']['name'] }}</td>
+                            <td>{{ $item->comment }}</td>
+                            <td>
+                                @if ($item->review == NULL)
+                                <i class="bx bxs-star text-secondary"></i>
+                                <i class="bx bxs-star text-secondary"></i>
+                                <i class="bx bxs-star text-secondary"></i>
+                                <i class="bx bxs-star text-secondary"></i>
+                                <i class="bx bxs-star text-secondary"></i>
+                                @elseif ($item->review == 1)
+                                <i class="bx bxs-star text-warning"></i>
+                                <i class="bx bxs-star text-secondary"></i>
+                                <i class="bx bxs-star text-secondary"></i>
+                                <i class="bx bxs-star text-secondary"></i>
+                                <i class="bx bxs-star text-secondary"></i>
+                                @elseif ($item->review == 2)
+                                <i class="bx bxs-star text-warning"></i>
+                                <i class="bx bxs-star text-warning"></i>
+                                <i class="bx bxs-star text-secondary"></i>
+                                <i class="bx bxs-star text-secondary"></i>
+                                <i class="bx bxs-star text-secondary"></i>
+                                @elseif ($item->review == 3)
+                                <i class="bx bxs-star text-warning"></i>
+                                <i class="bx bxs-star text-warning"></i>
+                                <i class="bx bxs-star text-warning"></i>
+                                <i class="bx bxs-star text-secondary"></i>
+                                <i class="bx bxs-star text-secondary"></i>
+                                @elseif ($item->review == 4)
+                                <i class="bx bxs-star text-warning"></i>
+                                <i class="bx bxs-star text-warning"></i>
+                                <i class="bx bxs-star text-warning"></i>
+                                <i class="bx bxs-star text-warning"></i>
+                                <i class="bx bxs-star text-secondary"></i>
+                                @elseif ($item->review == 5)
+                                <i class="bx bxs-star text-warning"></i>
+                                <i class="bx bxs-star text-warning"></i>
+                                <i class="bx bxs-star text-warning"></i>
+                                <i class="bx bxs-star text-warning"></i>
+                                <i class="bx bxs-star text-warning"></i>
+                                @endif
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+@endsection
