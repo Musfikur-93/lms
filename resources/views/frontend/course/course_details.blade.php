@@ -350,12 +350,14 @@
                                                 </div> <!-- End Skill Bar -->
                                             </div>
                                         </div><!-- end review-bars__fill -->
-                                        <div class="review-bars__percent">{{ number_format($ratingInfo['percent'], 2) }}%</div>
+                                        <div class="review-bars__percent">{{ number_format($ratingInfo['percent'],2) }}%</div>
                                     </div><!-- end review-bars -->
 
                                     @endforeach
+
                                     @else
                                     <p>No Reviews Available</p>
+
                                     @endif
 
                                </div><!-- end media-body -->

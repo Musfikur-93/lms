@@ -189,6 +189,15 @@ Route::middleware(['auth','roles:admin'])->group(function(){
         Route::post('/search/by/month','SearchByMonth')->name('search.by.month');
         Route::post('/search/by/year','SearchByYear')->name('search.by.year');
 
+    });
+
+    // Admin Report View All Route
+    Route::controller(ReviewController::class)->group(function(){
+
+        Route::get('/admin/pending/review','AdminPendingReview')->name('admin.pending.review');
+        Route::post('/update/review/stauts','UpdateReviewStatus')->name('update.review.stauts');
+        Route::get('/admin/active/review','AdminActiveReview')->name('admin.active.review');
+
 
     });
 
