@@ -15,6 +15,7 @@ use App\Http\Controllers\Backend\OrderController;
 use App\Http\Controllers\Backend\QuestionController;
 use App\Http\Controllers\Backend\ReportController;
 use App\Http\Controllers\Backend\ReviewController;
+use App\Http\Controllers\Backend\ActiveUserController;
 
 use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\Frontend\WishListController;
@@ -197,6 +198,14 @@ Route::middleware(['auth','roles:admin'])->group(function(){
         Route::get('/admin/pending/review','AdminPendingReview')->name('admin.pending.review');
         Route::post('/update/review/stauts','UpdateReviewStatus')->name('update.review.stauts');
         Route::get('/admin/active/review','AdminActiveReview')->name('admin.active.review');
+
+    });
+
+    // Admin All User and Insturctor Route
+    Route::controller(ActiveUserController::class)->group(function(){
+
+        Route::get('/all/user','AllUser')->name('all.user');
+        Route::get('/all/instructor','AllInstructor')->name('all.instructor');
 
     });
 
