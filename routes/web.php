@@ -16,6 +16,7 @@ use App\Http\Controllers\Backend\QuestionController;
 use App\Http\Controllers\Backend\ReportController;
 use App\Http\Controllers\Backend\ReviewController;
 use App\Http\Controllers\Backend\ActiveUserController;
+use App\Http\Controllers\Backend\BlogController;
 
 use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\Frontend\WishListController;
@@ -201,11 +202,37 @@ Route::middleware(['auth','roles:admin'])->group(function(){
 
     });
 
+
     // Admin All User and Insturctor Route
     Route::controller(ActiveUserController::class)->group(function(){
 
         Route::get('/all/user','AllUser')->name('all.user');
         Route::get('/all/instructor','AllInstructor')->name('all.instructor');
+
+    });
+
+
+    // Admin Blog Category Route
+    Route::controller(BlogController::class)->group(function(){
+
+        Route::get('/blog/category','AllBlogCategory')->name('blog.category');
+        Route::post('/blog/category/store','BlogCategoryStore')->name('blog.category.store');
+        Route::get('/edit/blog/category/{id}','EditBlogCategory');
+        Route::post('/blog/category/update','BlogCategoryUpdate')->name('blog.category.update');
+        Route::get('/delete/blog/category/{id}','DeleteBlogCategory')->name('delete.blog.category');
+
+    });
+
+
+    // Admin Blog Post Route
+    Route::controller(BlogController::class)->group(function(){
+
+        Route::get('/blog/post','BlogPost')->name('blog.post');
+        Route::get('/add/blog/post','AddBlogPost')->name('add.blog.post');
+        Route::post('/store/blog/post','StoreBlogPost')->name('store.blog.post');
+        Route::get('/edit/post/{id}','EditBlogPost')->name('edit.post');
+        Route::post('/update/blog/post','UpdateBlogPost')->name('update.blog.post');
+        Route::get('/delete/post/{id}','DeleteBlogPost')->name('delete.post');
 
     });
 
@@ -348,6 +375,9 @@ Route::middleware(['auth','roles:instructor'])->group(function(){
 
     // Stripe Payment Page Route
     Route::post('/stripe_order', [CartController::class, 'StripeOrder'])->name('stripe_order');
+
+    // Blog Details Page Route
+    Route::get('/blog/details/{slug}', [BlogController::class, 'BlogDetails']);
 
 
     // End Route Accessable for All

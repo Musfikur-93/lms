@@ -8,6 +8,10 @@
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    <!--tagsinput-->
+	<link href="{{ asset('backend/assets/plugins/input-tags/css/tagsinput.css') }}" rel="stylesheet" />
+    <!--tagsinput-->
+
 	<!--favicon-->
 	<link rel="icon" href="{{ asset('backend/assets/images/favicon-32x32.png') }}" type="image/png"/>
 	<!--plugins-->
@@ -22,6 +26,7 @@
 	<link href="{{ asset('backend/assets/css/bootstrap.min.css') }}" rel="stylesheet">
 	<link href="{{ asset('backend/assets/css/bootstrap-extended.css') }}" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
 	<link href="{{ asset('backend/assets/css/app.css') }}" rel="stylesheet">
 	<link href="{{ asset('backend/assets/css/icons.css') }}" rel="stylesheet">
 	<!-- Theme Style CSS -->
@@ -77,6 +82,10 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="{{ asset('backend/assets/js/code.js') }}"></script>
 
+    <!--tagsinput-->
+	<script src="{{ asset('backend/assets/plugins/input-tags/js/tagsinput.js') }}"></script>
+	<!--tagsinput-->
+
 	<!--app JS-->
 	<script src="{{ asset('backend/assets/js/app.js') }}"></script>
 	<script>
@@ -117,6 +126,16 @@
     }
     @endif
     </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+    <script>
+        $('#summernote').summernote({
+          tabsize: 2,
+          height: 200,
+        });
+      </script>
 
 </body>
 
