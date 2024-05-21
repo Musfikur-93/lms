@@ -126,7 +126,7 @@
                                         </ul>
                                     </li>
                                     <li>
-                                        <a href="#">blog </i></a>
+                                        <a href="{{ route('blog') }}">blog </i></a>
                                     </li>
                                 </ul><!-- end ul -->
                             </nav><!-- end main-menu -->

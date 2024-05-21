@@ -26,9 +26,9 @@
                 <div class="card-body">
                     <h5 class="card-title"><a href="{{ url('blog/details/'.$item->post_slug) }}">{{ Str::limit($item->post_title,30) }}</a></h5>
                     <ul class="generic-list-item generic-list-item-bullet generic-list-item--bullet d-flex align-items-center flex-wrap fs-14 pt-2">
-                        <li class="d-flex align-items-center">By<a href="">Admin</a></li>
+                        <li class="d-flex align-items-center">By<a>Admin</a></li>
                         {{-- <li class="d-flex align-items-center"><a href=""></a></li> --}}
-                        <li class="d-flex align-items-center"><a href="">{{ $item['blog']['category_name'] }}</a></li>
+                        <li class="d-flex align-items-center"><a href="{{ url('blog/cat/list/'.$item->blogcat_id) }}">{{ $item['blog']['category_name'] }}</a></li>
                     </ul>
                     <div class="d-flex justify-content-between align-items-center pt-3">
                         <a href="{{ url('blog/details/'.$item->post_slug) }}" class="btn theme-btn theme-btn-sm theme-btn-white">Read More <i class="la la-arrow-right icon ml-1"></i></a>

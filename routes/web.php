@@ -378,6 +378,8 @@ Route::middleware(['auth','roles:instructor'])->group(function(){
 
     // Blog Details Page Route
     Route::get('/blog/details/{slug}', [BlogController::class, 'BlogDetails']);
+    Route::get('/blog/cat/list/{id}', [BlogController::class, 'BlogCatList']);
+    Route::get('/blog', [BlogController::class, 'BlogList'])->name('blog');
 
 
     // End Route Accessable for All
