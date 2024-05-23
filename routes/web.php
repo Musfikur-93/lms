@@ -329,6 +329,14 @@ Route::middleware(['auth','roles:instructor'])->group(function(){
     });
 
 
+    // Instructor Notification All Route
+    Route::controller(CartController::class)->group(function(){
+
+        Route::post('/mark-notification-as-read/{notification}','MarkAsRead');
+
+    });
+
+
 }); // End Instructor Group Middleware
 
 
