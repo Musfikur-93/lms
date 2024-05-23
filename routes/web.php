@@ -173,6 +173,15 @@ Route::middleware(['auth','roles:admin'])->group(function(){
     });
 
 
+    // Admin Site Setting All Route
+    Route::controller(SettingController::class)->group(function(){
+
+        Route::get('/site/setting','SiteSetting')->name('site.setting');
+        Route::post('/update/site','SiteUpdate')->name('update.site');
+
+    });
+
+
     // Admin Order All Route
     Route::controller(OrderController::class)->group(function(){
 
