@@ -1,6 +1,13 @@
 @extends('frontend.master')
 @section('home')
 
+
+@section('title')
+LMS
+@endsection
+
+
+
 <!--================================
          START HERO AREA
 =================================-->

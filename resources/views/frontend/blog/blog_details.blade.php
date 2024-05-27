@@ -1,6 +1,11 @@
 @extends('frontend.master')
 @section('home')
 
+
+@section('title')
+{{ $blog->post_title }} | LMS
+@endsection
+
 <!-- ================================
     START BREADCRUMB AREA
 ================================= -->

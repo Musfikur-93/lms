@@ -1,6 +1,10 @@
 @extends('frontend.master')
 @section('home')
 
+@section('title')
+Blog | LMS
+@endsection
+
 <!-- ================================
     START BREADCRUMB AREA
 ================================= -->

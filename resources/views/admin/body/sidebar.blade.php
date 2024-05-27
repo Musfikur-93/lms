@@ -153,15 +153,15 @@
             </ul>
         </li>
 
-        <li class="menu-label">Setting</li>
+        <li class="menu-label">Role & Permission</li>
         <li>
             <a class="has-arrow" href="javascript:;">
                 <div class="parent-icon"><i class="bx bx-key"></i>
                 </div>
-                <div class="menu-title">Password</div>
+                <div class="menu-title">Role & Permission</div>
             </a>
             <ul>
-                <li> <a href="charts-apex-chart.html"><i class='bx bx-radio-circle'></i>Change Password</a>
+                <li> <a href="{{ route('all.permission') }}"><i class='bx bx-radio-circle'></i>All Permission</a>
                 </li>
             </ul>
         </li>

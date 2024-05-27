@@ -1,6 +1,9 @@
 @extends('frontend.master')
 @section('home')
 
+@section('title')
+{{ $subcategory->subcategory_name }} | LMS
+@endsection
 
 <!-- ================================
     START BREADCRUMB AREA
