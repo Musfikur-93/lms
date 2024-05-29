@@ -9,6 +9,7 @@ use Spatie\Permission\Models\Permission;
 use App\Exports\PermissionExport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\PermissionImport;
+use App\Models\User;
 
 class RoleController extends Controller
 {
@@ -108,6 +109,91 @@ class RoleController extends Controller
             'alert-type' => 'success'
         );
         return redirect()->back()->with($notification);
+
+    } // End Method
+
+
+
+    ////////////////////// All Roles Method //////////////////
+
+    public function AllRoles(){
+
+        $roles = Role::all();
+        return view('admin.backend.pages.roles.all_roles',compact('roles'));
+
+    } // End Method
+
+
+    public function AddRoles(){
+
+        return view('admin.backend.pages.roles.add_roles');
+
+    } // End Method
+
+
+    public function StoreRoles(Request $request){
+
+        Role::create([
+            'name' => $request->name,
+        ]);
+
+        $notification = array(
+            'message' => 'Roles Created Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('all.roles')->with($notification);
+
+    } // End Method
+
+
+    public function EditRoles($id){
+
+        $roles = Role::find($id);
+        return view('admin.backend.pages.roles.edit_roles',compact('roles'));
+
+    } // End Method
+
+
+    public function UpdateRoles(Request $request){
+
+        $role_id = $request->id;
+
+        Role::find($role_id)->update([
+            'name' => $request->name,
+        ]);
+
+        $notification = array(
+            'message' => 'Roles Updated Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('all.roles')->with($notification);
+
+    } // End Method
+
+
+    public function DeleteRoles($id){
+
+        Role::find($id)->delete();
+
+        $notification = array(
+            'message' => 'Roles Deleted Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+
+    } // End Method
+
+
+
+    ///////////////////////// Add Roles Permission Method ///////////////////
+
+
+    public function AddRolesPermission(){
+
+        $roles = Role::all();
+        $permission_groups = User::getpermissionGroups();
+        $permissions = Permission::all();
+        return view('admin.backend.pages.rolesetup.add_roles_permission',compact('roles','permission_groups','permissions'));
 
     } // End Method
 
