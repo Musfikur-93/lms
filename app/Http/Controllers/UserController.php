@@ -111,6 +111,14 @@ class UserController extends Controller
     } // End Method
 
 
+    ///////////////////// User Live Chat Method /////////////////////////
+
+
+    public function LiveChat(){
+        return view('frontend.dashboard.live_chat');
+    } // End Method
+
+
 
 
 }

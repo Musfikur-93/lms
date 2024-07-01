@@ -18,6 +18,7 @@ use App\Http\Controllers\Backend\ReviewController;
 use App\Http\Controllers\Backend\ActiveUserController;
 use App\Http\Controllers\Backend\BlogController;
 use App\Http\Controllers\Backend\RoleController;
+use App\Http\Controllers\Backend\ChatController;
 
 use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\Frontend\WishListController;
@@ -55,6 +56,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/user/change/password', [UserController::class, 'UserChangePassword'])->name('user.change.password');
     Route::post('/user/password/update', [UserController::class, 'UserPasswordUpdate'])->name('user.password.update');
+
+    Route::get('/live/chat', [UserController::class, 'LiveChat'])->name('live.chat');
 
     // User Wishlist All Route
     Route::controller(WishListController::class)->group(function(){
@@ -407,6 +410,7 @@ Route::middleware(['auth','roles:instructor'])->group(function(){
     });
 
 
+
 }); // End Instructor Group Middleware
 
 
@@ -458,6 +462,12 @@ Route::middleware(['auth','roles:instructor'])->group(function(){
     Route::get('/blog/details/{slug}', [BlogController::class, 'BlogDetails']);
     Route::get('/blog/cat/list/{id}', [BlogController::class, 'BlogCatList']);
     Route::get('/blog', [BlogController::class, 'BlogList'])->name('blog');
+
+    // Chat Post Request Route
+    Route::post('/send-message', [ChatController::class, 'SendMessage']);
+    Route::get('/user-all', [ChatController::class, 'GetAllUser']);
+    Route::get('/user-message/{id}', [ChatController::class, 'UserMsgById']);
+    Route::get('/instructor/live/chat', [ChatController::class, 'LiveChat'])->name('instructor.live.chat');
 
 
     // End Route Accessable for All
