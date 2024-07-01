@@ -19,6 +19,7 @@ use App\Http\Controllers\Backend\ActiveUserController;
 use App\Http\Controllers\Backend\BlogController;
 use App\Http\Controllers\Backend\RoleController;
 use App\Http\Controllers\Backend\ChatController;
+use App\Http\Controllers\Backend\SliderController;
 
 use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\Frontend\WishListController;
@@ -306,6 +307,15 @@ Route::middleware(['auth','roles:admin'])->group(function(){
         Route::get('/edit/admin/{id}','EditAdmin')->name('edit.admin');
         Route::post('/update/admin/{id}','UpdateAdmin')->name('update.admin');
         Route::get('/delete/admin/{id}','DeleteAdmin')->name('delete.admin');
+
+    });
+
+
+    // Slider All Route
+    Route::controller(SliderController::class)->group(function(){
+
+        Route::get('/all/slider','AllSlider')->name('all.slider');
+        Route::post('/update/slider','UpdateSlider')->name('update.slider');
 
     });
 
