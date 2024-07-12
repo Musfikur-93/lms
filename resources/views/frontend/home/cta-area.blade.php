@@ -1,3 +1,4 @@
+
 <section class="cat-area pt-80px pb-80px bg-gray position-relative">
     <span class="ring-shape ring-shape-1"></span>
     <span class="ring-shape ring-shape-2"></span>
